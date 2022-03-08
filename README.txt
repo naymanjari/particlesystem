@@ -1,4 +1,4 @@
-this project will show particle physics in a 3D environment
+this project will show particle physics
 
 the spheres will initially oscillate inwards and outwards and all have very specific placements on the imagined larger sphere they are outlining
 
