@@ -1,9 +1,11 @@
-let oscSps;
 
+let oscSps = [];
 
 function setup() {
 	createCanvas (400, 400);
-	oscSps = new oscSp();
+	for (var i = 0; i < 12; i++) {
+		oscSps[i] = new oscSp(i);
+	}
 
 }
 
@@ -11,61 +13,68 @@ function setup() {
 function draw() {
 	background (0);
 	translate (width/2, height/2);
-	
-	oscSps.move(1);
-	oscSps.display();
+
+	for (var i = 0; i < oscSps.length; i++) {
+		oscSps[i].move();
+		oscSps[i].display();
+	}
+
 
 }
 
 
 class oscSp {
-	constructor() {
-		this.whichSp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-		this.oscx = 0;
-		this.oscy = 0;
-		this.oscspeed = 0.05;
-		this.dx = 0;
-		this.dy = 0;
+	constructor(whichSp) {
+		this.whichSp = whichSp;
+		this.oscx;
+		this.oscy;
+		this.dx;
+		this.dy;
+		this.oscspeed = 0;
 		
-	
+		print (whichSp);
 
 	}
 
-	move(whichSp) {
-		if (whichSp[0]) {
+	move() {
+		if (this.whichSp == 0) {
 			this.oscx = 100;
 			this.oscy = 0;
-		} else if (whichSp[1]) {
+		} else if (this.whichSp == 1) {
 			this.oscx = (sqrt(3)/2)*100;
 			this.oscy = (1/2)*-100;
-		} else if (whichSp[2]) {
+		} else if (this.whichSp == 2) {
 			this.oscx = (1/2)*100;
 			this.oscy = (sqrt(3)/2)*-100;
-		} else if (whichSp[3]) {
+		} else if (this.whichSp == 3) {
 			this.oscx = 0;
 			this.oscy = -100;
-		} else if (whichSp[4]) {
+		} else if (this.whichSp == 4) {
 			this.oscx = (-1/2)*100;
 			this.oscy = (sqrt(3)/2)*-100;
-		} else if (whichSp[5]) {
+		} else if (this.whichSp == 5) {
 			this.oscx = (sqrt(3)/2)*-100;
 			this.oscy = (1/2)*-100;
-		} else if (whichSp[6]) {
+		} else if (this.whichSp == 6) {
 			this.oscx = -100;
 			this.oscy = 0;
-		} else if (whichSp[7]) {
+		} else if (this.whichSp == 7) {
 			this.oscx = (sqrt(3)/2)*-100;
 			this.oscy = (1/2)*100;
-		} else if (whichSp[8]) {
+		} else if (this.whichSp == 8) {
 			this.oscx = (-1/2)*100;
 			this.oscy = (sqrt(3)/2)*100;
-		} else if (whichSp[9]) {
+		} else if (this.whichSp == 9) {
 			this.oscx = 0;
 			this.oscy = 100;
-		} else if (whichSp[10]) {
+		} else if (this.whichSp == 10) {
 			this.oscx = (1/2)*100;
 			this.oscy = (sqrt(3)/2)*100;
+		} else if (this.whichSp == 11) {
+			this.oscx = (sqrt(3)/2)*100;
+			this.oscy = (1/2)*100;
 		}
+		this.oscspeed += 0.05;
 		this.dx = map(sin(this.oscspeed), -1, 1, 0, this.oscx);
 		this.dy = map(sin(this.oscspeed), -1, 1, 0, this.oscy);
 	}
@@ -78,7 +87,7 @@ class oscSp {
 
 }
 
-//class bounceSp {
+//class explodies {
 
 
 //}
