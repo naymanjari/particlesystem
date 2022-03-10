@@ -13,7 +13,8 @@ function setup() {
 }
 
 function mousePressed() {
-	let r = random(-5, 5);
+	let speed = [-5, -4, -3, -2, -1, 1, 2, 3, 4, 5]
+	let r = random(speed);
 	let b = new bounceBall(mouseX, mouseY, r, r);
 	bounceBalls.push(b);
 }
@@ -45,6 +46,7 @@ class oscSp {
 		this.dx;
 		this.dy;
 		this.oscspeed = 0;
+
 
 	}
 
@@ -94,6 +96,7 @@ class oscSp {
 
 	display() {
 		noStroke ();
+		fill (255);
 		ellipse (this.dx, this.dy, 10, 10);
 	}
 
@@ -108,9 +111,17 @@ class bounceBall {
 		this.bounceY = y;
 		this.bounceSpeedX = xSpeed;
 		this.bounceSpeedY = ySpeed;
+		//this.index = index_;
 	}
 
 	move() {
+		let colliding = this.amIColliding();
+		if (colliding) {
+			print ("collision!");
+			this.bounceSpeedX *= -1;
+			this.bounceSpeedY *= -1;
+		}
+
 		this.bounceX += this.bounceSpeedX;
 		if (this.bounceX < -200 || this.bounceX > 200) {
 			this.bounceSpeedX *= -1;
@@ -123,7 +134,30 @@ class bounceBall {
 	}
 
 	display() {
+		fill (255, 0, 0);
 		circle(this.bounceX, this.bounceY, 10);
 		//print(this.bounceX + ', ' + this.bounceY);
+	}
+
+
+
+	amIColliding() {
+		let hitbox = 10;
+		for (var i = 0; i < bounceBalls.length; i++) {
+			//if (i != this.index) {
+				let xIsTooClose = false;
+				let yIsTooClose = false;
+
+				if (abs(this.bounceX - oscSp.oscx) <= hitbox) {
+					xIsTooClose = true;
+				}
+				if (abs(this.bounceY - oscSp.oscy) <= hitbox) {
+					yIsTooClose = true;
+				}
+				if (xIsTooClose && yIsTooClose) {
+					return true;
+				}
+			//}
+		}
 	}
 }
